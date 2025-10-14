@@ -9,10 +9,10 @@ import { sendMail } from "../utils/mailer.js";
 const logFile = path.join(process.cwd(), "log.txt");
 
 // Helper to log email attempts
-const logEmail = async (to, subject, status, info = "") => {
-  const logEntry = `[${new Date().toISOString()}] TO: ${to} | SUBJECT: ${subject} | STATUS: ${status} | INFO: ${info}\n`;
-  await fs.appendFile(logFile, logEntry);
-};
+// const logEmail = async (to, subject, status, info = "") => {
+//   const logEntry = `[${new Date().toISOString()}] TO: ${to} | SUBJECT: ${subject} | STATUS: ${status} | INFO: ${info}\n`;
+//   await fs.appendFile(logFile, logEntry);
+// };
 
 // Controller function
 export const sendEmail = async (req, res) => {
@@ -28,7 +28,7 @@ export const sendEmail = async (req, res) => {
     // Handle attachments
     const attachments = req.files?.map((file) => ({
       filename: file.originalname,
-      path: file.path,
+      content: file.buffer, // use buffer directly
     }));
 
     // Send email
@@ -41,7 +41,7 @@ export const sendEmail = async (req, res) => {
     });
 
     // Log success
-    await logEmail(to, subject, "SENT", info.response || info.messageId);
+    // await logEmail(to, subject, "SENT", info.response || info.messageId);
 
     // Cleanup uploaded files asynchronously after sending
     if (attachments && attachments.length) {
