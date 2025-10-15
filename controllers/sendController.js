@@ -9,10 +9,10 @@ import { sendMail } from "../utils/mailer.js";
 const logFile = path.join(process.cwd(), "log.txt");
 
 // Helper to log email attempts
-// const logEmail = async (to, subject, status, info = "") => {
-//   const logEntry = `[${new Date().toISOString()}] TO: ${to} | SUBJECT: ${subject} | STATUS: ${status} | INFO: ${info}\n`;
-//   await fs.appendFile(logFile, logEntry);
-// };
+const logEmail = async (to, subject, status, info = "") => {
+  const logEntry = `[${new Date().toISOString()}] TO: ${to} | SUBJECT: ${subject} | STATUS: ${status} | INFO: ${info}\n`;
+  await fs.appendFile(logFile, logEntry);
+};
 
 // Controller function
 export const sendEmail = async (req, res) => {
